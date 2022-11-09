@@ -1,17 +1,15 @@
 import os
-import sys
-from os import listdir, path
-from typing import Any, Dict, List, Union
 from glob import glob
-from sbb_b import *
+from typing import Any, Dict, List, Union
 
+from sbb_b import *
 from sbb_b.helpers.functions.functions import translate
 
 try:
     from yaml import safe_load
 except ModuleNotFoundError:
     from sbb_b.helpers.functions.functions import safe_load
-    
+
 
 language = [os.environ.get("language") or "ar"]
 languages = {}
@@ -26,8 +24,7 @@ for file in glob("strings/strings/*yml"):
         except Exception as er:
             LOGS.info(f"Error in {file[:-4]} language file")
             LOGS.exception(er)
-            
-            
+
 
 def get_string(key: str, _res: bool = True) -> Any:
     lang = language[0]
@@ -55,8 +52,7 @@ def get_string(key: str, _res: bool = True) -> Any:
         if not _res:
             return None
         return languages["ar"].get(key) or f"فشل في تحميل سلسلة ترجمة ملف '{key}'"
-      
-      
+
 
 def get_languages() -> Dict[str, Union[str, List[str]]]:
     return {
@@ -67,4 +63,3 @@ def get_languages() -> Dict[str, Union[str, List[str]]]:
         }
         for code in languages
     }
-      
