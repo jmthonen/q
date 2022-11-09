@@ -16,12 +16,14 @@ except ModuleNotFoundError:
     install_pip("IMDbPY")
     from imdb import IMDb
 
+import random
+from urllib.parse import quote
+
 from html_telegraph_poster import TelegraphPoster
 from PIL import Image, ImageColor, ImageDraw, ImageFont, ImageOps
 from telethon.errors.rpcerrorlist import YouBlockedUserError
 from telethon.tl.functions.contacts import UnblockRequest as unblock
-from urllib.parse import quote, unquote
-import random
+
 from ...Config import Config
 from ...core.logger import logging
 from ...sql_helper.globals import gvarstatus
@@ -86,6 +88,7 @@ async def sanga_seperator(sanga_list):
     names = sanga_list[:s]
     return names, usernames
 
+
 def _package_rpc(text, lang_src="auto", lang_tgt="auto"):
     GOOGLE_TTS_RPC = ["MkEWBc"]
     parameter = [[text.strip(), lang_src, lang_tgt, True], [1]]
@@ -96,12 +99,14 @@ def _package_rpc(text, lang_src="auto", lang_tgt="auto"):
     freq = freq_initial
     return freq
 
+
 def _get_value(stri):
     try:
         value = eval(stri.strip())
-    except Exception as er:
+    except Exception:
         value = stri.strip()
     return value
+
 
 def translate(*args, **kwargs):
     headers = {
@@ -230,6 +235,7 @@ async def delete_conv(event, chat, from_message):
 
 
 # --------------------------------------------------------------------------------------------------------------------#
+
 
 def safe_load(file, *args, **kwargs):
     if isinstance(file, str):
